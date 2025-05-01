@@ -6,5 +6,3 @@
 .vscode/
 *.swp
 *.swo
-
-/config/config.json

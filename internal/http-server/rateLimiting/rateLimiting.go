@@ -10,16 +10,16 @@ import (
 
 // ClientBucket хранит состояние токенов для одного клиента
 type ClientBucket struct {
-	capacity    int       // Максимальное количество токенов
-	tokens      int       // Текущее количество токенов
-	rate        float64   // Токенов в секунду
-	lastUpdated time.Time // Время последнего пополнения
+	capacity    int
+	tokens      int
+	rate        float64
+	lastUpdated time.Time
 	mu          sync.Mutex
 }
 
 // RateLimiter управляет ограничениями для всех клиентов
 type RateLimiter struct {
-	Buckets map[string]*ClientBucket // Клиент -> его bucket
+	Buckets map[string]*ClientBucket
 	mu      sync.RWMutex
 	Stop1   chan struct{}
 }
@@ -71,7 +71,7 @@ func (rl *RateLimiter) Allow(clientID string) bool {
 	rl.mu.RUnlock()
 
 	if !exists {
-		return true // Или false, в зависимости от политики
+		return true
 	}
 
 	bucket.mu.Lock()

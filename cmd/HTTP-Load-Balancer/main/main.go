@@ -21,9 +21,6 @@ func main() {
 		Stop1:   make(chan struct{}),
 	}
 
-	// Добавление стандартных лимитов (пример)
-	limiter.AddClient("default", 100, 10) // 100 запросов, 10 в секунду
-
 	handler := &rl.RateLimitHandler{Limiter: limiter}
 
 	configFile := flag.String("config", "config.json", "Path to config file")
@@ -79,7 +76,7 @@ func main() {
 		Handler: mux,
 	}
 
-	log.Printf("Load balancer with rate limiting started on port %d", config.Port)
+	log.Printf("Load balancer started on port %d", config.Port)
 	log.Fatal(server.ListenAndServe())
 }
 
